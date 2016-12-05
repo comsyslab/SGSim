@@ -57,7 +57,7 @@ int sc_main( int argc, char * argv[] )
             for(unsigned int j=0; j<NumberOfAppliances; j++)
             {
                 n[i][j]=scnsl->createNode();  
-                std::cout<<"Create Appliance NODE["<<i<<","<<j<<"]"<< "for Building:"<<j<<"  "<<std::endl;
+                std::cout<<"Create Appliance NODE["<<i<<","<<j<<"]"<< "for Building:"<<i<<"  "<<std::endl;
             }       
       
 
