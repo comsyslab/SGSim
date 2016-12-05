@@ -1,0 +1,120 @@
+#############################################
+# CMake file for dependencies and targets.
+#############################################
+#
+# @author Francesco Stefanni
+#
+
+#############################################
+# Configuring.
+#############################################
+
+# For each trace, which maximum verbosity level shall be used.
+# From 0 (no trace) to 5 (max verbosity).
+
+SET(SCNSL_INFO 5 CACHE STRING "Verbosity level for infos. (0 to 5)" FORCE)
+SET(SCNSL_LOG 5 CACHE STRING "Verbosity level for logs. (0 to 5)" FORCE)
+SET(SCNSL_DBG 5 CACHE STRING "Verbosity level for debugs. (0 to 5)" FORCE)
+
+SET(SCNSL_WARNING 5 CACHE STRING "Verbosity level for warnings. (0 to 5)" FORCE)
+SET(SCNSL_ERROR 5 CACHE STRING "Verbosity level for errors. (0 to 5)" FORCE)
+SET(SCNSL_FATAL 5 CACHE STRING "Verbosity level for fatals. (0 to 5)" FORCE)
+
+mark_as_advanced(FORCE SCNSL_INFO SCNSL_LOG SCNSL_DBG SCNSL_WARNING SCNSL_ERROR SCNSL_FATAL)
+
+# Configuring.
+
+add_definitions(
+  -DSCNSL_INFO=${SCNSL_INFO}
+  -DSCNSL_LOG=${SCNSL_LOG}
+  -DSCNSL_DBG=${SCNSL_DBG}
+  -DSCNSL_WARNING=${SCNSL_WARNING}
+  -DSCNSL_ERROR=${SCNSL_ERROR}
+  -DSCNSL_FATAL=${SCNSL_FATAL}
+  )
+
+
+#############################################
+# Includes.
+#############################################
+
+SET(ALL_INCLUDE_DIRS
+  include/scnsl
+  )
+
+include_directories(${ALL_INCLUDE_DIRS})
+include_directories(SYSTEM ${SCNSL_INCLUDE} ${SYSTEMC_INCLUDE} ${SYSTEMC_TLM_INCLUDE})
+
+#############################################
+# Sources.
+#############################################
+
+ 
+
+set(BUILDING_M_M_FLOORS
+	Building_M_M_Floors/main.cc
+	Building_M_M_Floors/MyTask_t.cc
+        Building_M_M_Floors/MyTask_tr.cc        
+  )
+set(NETWORK_M_M
+	Network_M_M/main.cc
+	Network_M_M/MyTask_t.cc
+        Network_M_M/MyTask_tr.cc        
+  )
+set(THREE_NODES_WITH_ROUTER
+	Three_Nodes_with_Router/main.cc
+	Three_Nodes_with_Router/MyTask_t.cc
+        Three_Nodes_with_Router/MyTask_tr.cc        
+  )
+set(SG_m_n
+        SG_m_n/main.cc
+        SG_m_n/MyTask_t.cc
+        SG_m_n/MyTask_tr.cc
+  )
+ 
+
+#############################################
+# Targets.
+#############################################
+
+ 
+
+#### Building_M_M_Floors.
+
+add_executable(Building_M_M_Floors ${BUILDING_M_M_FLOORS})
+target_link_libraries(Building_M_M_Floors ${LIB_SCNSL} ${LIB_SYSTEMC} ${LIB_DL})#### 802.15.4 tests.
+
+#### Network_M_M.
+add_executable(Network_M_M ${NETWORK_M_M})
+target_link_libraries(Network_M_M ${LIB_SCNSL} ${LIB_SYSTEMC} ${LIB_DL})#### 802.15.4 tests.
+
+#### Three_Nodes_with_Router.
+add_executable(Three_Nodes_with_Router ${THREE_NODES_WITH_ROUTER})
+target_link_libraries(Three_Nodes_with_Router ${LIB_SCNSL} ${LIB_SYSTEMC} ${LIB_DL})#### 802.15.4 tests.
+
+#### SG_m_n.
+add_executable(SG_m_n ${SG_m_n})
+target_link_libraries(SG_m_n ${LIB_SCNSL} ${LIB_SYSTEMC} ${LIB_DL})#### 802.15.4 tests.
+ 
+#############################################
+# Targets Lists.
+#############################################
+
+
+# Setting executable targets:
+
+SET(EXE_TARGETS
+   
+  Building_M_M_Floors  
+  Network_M_M
+  Three_Nodes_with_Router
+  SG_m_n
+  )
+
+SET(TEST_TARGETS
+  ${EXE_TARGETS}
+  )
+
+add_install_exe_targets(${EXE_TARGETS})
+
+#### EOF ####
