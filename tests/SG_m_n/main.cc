@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////
-// for Smart Grid simulation
+// Smart Grid simulation
 // Email: esme@eng.au.dk
 //////////////////////////////////////////////////
 
@@ -367,7 +367,7 @@ BindSetup_base_t bsbS_H;
     }  
 
 /////////////////////////////////////////////////////////////////////////////////////
-        sc_core::sc_start( sc_core::sc_time( 10, sc_core::SC_S ) );
+        sc_core::sc_start( sc_core::sc_time( 10, sc_core::SC_SEC ) );
         sc_core::sc_stop();
     }
     catch ( std::exception & e)
