@@ -30,19 +30,22 @@ int sc_main( int argc, char * argv[] )
         
         unsigned int NumberOfBuildings=0;
         unsigned int NumberOfAppliances=0;
-        if ( argc == 3 )
+	bool Ack;
+        if ( argc == 4 )
         {
-            std::stringstream ss, sa;
+            std::stringstream ss, sa, sk;
             ss << argv[ 1 ];
             ss >> NumberOfBuildings;
 	    sa << argv[ 2 ];
             sa >> NumberOfAppliances;
-	    std::cout<<"The Network has "<<NumberOfBuildings<<" buildings and each building has "<< NumberOfAppliances <<" Appliances"<<std::endl; 
+	    sk << argv[3];
+	    sk >> Ack;
+	    std::cout<<"The Network has "<<NumberOfBuildings<<" buildings and each building has "<< NumberOfAppliances <<" Appliances. Ack is "<<Ack<<"."<<std::endl; 
            
         }
 	else
 	{
-           std::cout<<"Please enter the building number and appliances per each building."<<std::endl;
+           std::cout<<"Please enter the building number and appliances per each building and TCP(1)/UDP(0)."<<std::endl;
 	
 	} 
         // Singleton.
@@ -78,10 +81,10 @@ int sc_main( int argc, char * argv[] )
         ccsa.extensionId = "core";
         ccsa.channel_type = CoreChannelSetup_t::SHARED;
         ccsa.name = "SharedChannel_Appliances<->Building";
-        ccsa.capacity = 10000000;
+        ccsa.capacity = 250000;
 
         ccsa.alpha = 0.01;
-        ccsa.delay = sc_core::sc_time( 1.0, sc_core::SC_US );
+        ccsa.delay = sc_core::sc_time( 1.0, sc_core::SC_MS );
         ccsa.nodes_number = NumberOfAppliances +1;
 
         Scnsl::Core::Channel_if_t * ch_a[NumberOfBuildings];
@@ -165,7 +168,7 @@ Scnsl::Core::task_id_t id_server = static_cast<const Scnsl::Core::task_id_t>(100
 ///////////////////////////////////////////////////////////////////////////////////
         CoreCommunicatorSetup_t ccoms;
         ccoms.extensionId = "core";
-        ccoms.ack_required = true;
+        ccoms.ack_required = Ack;
         ccoms.short_addresses = true;
         ccoms.type = CoreCommunicatorSetup_t::MAC_802_15_4;
 
@@ -174,7 +177,7 @@ Scnsl::Core::task_id_t id_server = static_cast<const Scnsl::Core::task_id_t>(100
 ///////////////////////////////////////////////////////////////////////////////////
         CoreCommunicatorSetup_t ccoms_Wire;
         ccoms_Wire.extensionId = "core";
-        ccoms_Wire.ack_required = true;
+        ccoms_Wire.ack_required = Ack;
         ccoms_Wire.short_addresses = true;
 //        ccoms_Wire.type = CoreCommunicatorSetup_t::MAC_802_15_4;
 
@@ -367,7 +370,7 @@ BindSetup_base_t bsbS_H;
     }  
 
 /////////////////////////////////////////////////////////////////////////////////////
-        sc_core::sc_start( sc_core::sc_time( 10, sc_core::SC_SEC ) );
+        sc_core::sc_start( sc_core::sc_time( 600, sc_core::SC_SEC ) );
         sc_core::sc_stop();
     }
     catch ( std::exception & e)

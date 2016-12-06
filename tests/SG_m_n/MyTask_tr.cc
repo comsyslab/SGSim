@@ -18,7 +18,7 @@ struct Payload_t
 {
   unsigned int id;			 
   double sender_times;        
-  int Temperature;			 
+  int LoadRequest;			 
   const char*  TaskName;
 };
 
@@ -61,7 +61,7 @@ void MyTask_tr::b_transport( tlm::tlm_generic_payload & p, sc_core::sc_time & t 
         	delay=(rxtime-txtime);
         	delayn=delay*1e-12+delayn; 
 		
-        	std::cout << "Receiver name: "<<name()<<" RECEIVED data: " << temp->Temperature << ", size: " << p.get_data_length()<<" delay "<< delay*1e-12 <<std::endl;//sc_core::sc_time_stamp() <<".";
+        	std::cout << "Receiver name: "<<name()<<" RECEIVED data: " << temp->LoadRequest << ", size: " << p.get_data_length()<<" delay "<< delay*1e-12 <<std::endl;//sc_core::sc_time_stamp() <<".";
 		std::cout<<"\t Accumulated delay between ("<<name() <<") and  Sender Task ID "<< temp->id << " (named " << temp->TaskName<<") is equal: "<<delayn<<" sec"<<std::endl  ;
 	         std::cout<<"\t Average delay between ("<<name() <<") and  Sender Task ID "<< temp->id << " (named " << temp->TaskName<<") is equal: "<<delayn/kk<<" sec"<<std::endl  ;
 		_packetArrivedEvent.notify();
