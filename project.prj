@@ -1,0 +1,29 @@
+(("configuration")
+ ("version" 1)
+ ("horizontal-split" t)
+ ("project-name" "SGSim")
+ ("copyright-holder" "Emad Ebeid")
+ ("year" "2017")
+ ("license" "~/.elisp/licenses/lgpl3.txt")
+
+ ("project-language" "cpp")
+ ("project-internal-name" "SGSim" "SGSim")
+
+ ("project-diff-default-dir" "~/tmp/scnsl/trunk/tests/")
+ )
+
+(("SGSim")
+ (":PKG:" "" "")
+
+        ("src/main.cc"  )
+        ("src/MyTask_t.cc"     "src/MyTask_t.hh")
+        ("src/MyTask_tr.cc"   "src/MyTask_tr.hh")
+ )
+
+
+(("makefiles")
+ (":PKG:" "" "")
+ ("CMakeLists.txt")
+ ("CMakeLists.deps.txt")
+ )
+
