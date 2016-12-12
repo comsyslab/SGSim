@@ -2,7 +2,7 @@
 # CMake file for dependencies and targets.
 #############################################
 #
-# @author Francesco Stefanni
+# @author Emad Ebeid
 #
 
 #############################################
