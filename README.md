@@ -1,5 +1,5 @@
 # SmartGridSimulator
-SCNSL simulator for Server&lt;->Building&lt;->Appliances hierarchy
+SCNSL-based simulator for smart grid Server&lt;->Building&lt;->Appliances hierarchy
 
 # To run the simulator
 1. Install SystemC Network Simulation library `https://sourceforge.net/projects/scnsl/` .
