@@ -62,8 +62,8 @@ set(SGSim
 #############################################
 
 #### SGSim.
-add_executable(src ${src})
-target_link_libraries(SG_m_n ${LIB_SCNSL} ${LIB_SYSTEMC} ${LIB_DL})#### 
+add_executable(SGSim ${SGSim})
+target_link_libraries(SGSim ${LIB_SCNSL} ${LIB_SYSTEMC} ${LIB_DL})#### 
  
 #############################################
 # Targets Lists.
