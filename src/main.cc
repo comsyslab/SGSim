@@ -24,10 +24,11 @@ using Scnsl::Tracing::Traceable_base_t;
 
 int sc_main( int argc, char * argv[] )
 {
+
  try {
 
  
-        
+//sc_core::sc_set_time_resolution(1,sc_core::SC_MS);        
         unsigned int NumberOfBuildings=0;
         unsigned int NumberOfAppliances=0;
 	bool Ack;
@@ -84,7 +85,7 @@ int sc_main( int argc, char * argv[] )
         ccsa.capacity = 250000;
 
         ccsa.alpha = 0.01;
-        ccsa.delay = sc_core::sc_time( 1.0, sc_core::SC_MS );
+        ccsa.delay = sc_core::sc_time( 0.1, sc_core::SC_MS );
         ccsa.nodes_number = NumberOfAppliances +1;
 
         Scnsl::Core::Channel_if_t * ch_a[NumberOfBuildings];
@@ -370,7 +371,7 @@ BindSetup_base_t bsbS_H;
     }  
 
 /////////////////////////////////////////////////////////////////////////////////////
-        sc_core::sc_start( sc_core::sc_time( 600, sc_core::SC_SEC ) );
+        sc_core::sc_start( sc_core::sc_time( 86400, sc_core::SC_SEC ) );
         sc_core::sc_stop();
     }
     catch ( std::exception & e)

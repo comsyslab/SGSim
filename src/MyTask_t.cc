@@ -32,6 +32,9 @@ MyTask_t::MyTask_t( const sc_core::sc_module_name modulename,
     if ( is_sender )
     {
                 SC_THREAD( _sender );
+
+
+
     }
 
 }
@@ -71,7 +74,7 @@ void MyTask_t::_sender()
         p->LoadRequest= (rand()%1000);
         p->id=taskid;
 	p->TaskName= name();
-        std::cout<<"Sender name "<<name()<< " ,Task id= "<<p->id<< " ,Load Request="<< p->LoadRequest<< " Watt"<< std::endl;;
+//        std::cout<<"Sender name "<<name()<< " ,Task id= "<<p->id<< " ,Load Request="<< p->LoadRequest<< " Watt"<< std::endl;;
         p->sender_times= sc_core::sc_time_stamp().to_double(); 
         TlmTask_if_t::send( tp, reinterpret_cast<byte_t *>(p), sizeof(Payload_t)); 
         wait(rand()%60,sc_core::SC_SEC);

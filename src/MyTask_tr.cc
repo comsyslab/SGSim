@@ -13,6 +13,7 @@
  double delay=0;
  double delayn=0;
  unsigned int kk= 0;
+ const sc_core::sc_time h23(83800,sc_core::SC_SEC);;//time for printing the last hour of the simulation time (23:00 to 24:00) 
 
 struct Payload_t
 {
@@ -52,6 +53,7 @@ void MyTask_tr::b_transport( tlm::tlm_generic_payload & p, sc_core::sc_time & t 
 {
 	Payload_t *temp=NULL; 
 	bool c;
+//	const sc_core::sc_time h23=82800000000;
 //	unsigned int k= 0;
 	if( p.get_command() == Scnsl::Tlm::PACKET_COMMAND )
 	{
@@ -60,10 +62,14 @@ void MyTask_tr::b_transport( tlm::tlm_generic_payload & p, sc_core::sc_time & t 
         	rxtime=sc_core::sc_time_stamp().to_double() ;
         	delay=(rxtime-txtime);
         	delayn=delay*1e-12+delayn; 
-		
-        	std::cout << "Receiver name: "<<name()<<" RECEIVED data: " << temp->LoadRequest << ", size: " << p.get_data_length()<<" delay "<< delay*1e-12 <<std::endl;//sc_core::sc_time_stamp() <<".";
+if(sc_core::sc_time_stamp()>h23)
+{		
+//        	std::cout << "Receiver name: "<<name()<<" RECEIVED data: " << temp->LoadRequest << ", size: " << p.get_data_length()<<" delay "<< delay*1e-12 <<std::endl;//sc_core::sc_time_stamp() <<".";
 		std::cout<<"\t Accumulated delay between ("<<name() <<") and  Sender Task ID "<< temp->id << " (named " << temp->TaskName<<") is equal: "<<delayn<<" sec"<<std::endl  ;
 	         std::cout<<"\t Average delay between ("<<name() <<") and  Sender Task ID "<< temp->id << " (named " << temp->TaskName<<") is equal: "<<delayn/kk<<" sec"<<std::endl  ;
+}
+// std::cout<<"Current time is "<< sc_core::sc_time_stamp() << std::endl;
+
 		_packetArrivedEvent.notify();
 		kk++;
 	}
